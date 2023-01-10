@@ -4,9 +4,13 @@ import difflib
 
 class Subtitles:
 
-    ORIGINAL_SUBTITLES = 'The Lord of the Rings. The Fellowship of the Ring.srt'
+    ORIGINAL_SUBTITLES = 'Forrest.Gump.1994.srt'
     THE_MOST_USE_WORDS = '20k.txt'
     EN_CZ_DICTIONARY = 'en-cs.txt'
+
+    def __init__(self):
+        self.format_dictionary()
+        self.create_key_list()
 
     def original_subtitles(self, filename=ORIGINAL_SUBTITLES) -> None:
         '''Converts the subtitles to a list'''
@@ -77,12 +81,26 @@ class Subtitles:
 
     def translate(self):
         '''Translates final unknown words'''
-        final_translate = {}
+        self.final_translate = {}
         for key, value in self.final_unknown_words.items():
             if value in self.dictionary_dict:
-                final_translate[key] = [self.final_unknown_words[key]] + self.dictionary_dict[value]
-        print(final_translate)
+                self.final_translate[key] = [self.final_unknown_words[key]] + self.dictionary_dict[value]
+        return str(self.final_translate)
 
+    def save_translate(self):
+        '''Saves final translate to format txt file'''
+        file = (f'{self.ORIGINAL_SUBTITLES}_translate.txt')
+        temporary = ''
+
+        with open(file, 'w') as f:
+            f.write(self.translate())
+
+        with open(file, 'r') as fp:
+                for i in fp:
+                    temporary += (str(i).replace('],',']\n'))
+
+        with open(file, 'w') as fp:
+            fp.write(temporary)
 
 
 if __name__ == '__main__':
@@ -91,7 +109,5 @@ if __name__ == '__main__':
     forrest.filter_text()
     forrest.remove_duplicities()
     forrest.unknown_words()
-    forrest.format_dictionary()
-    forrest.create_key_list()
     forrest.find_similar_words()
-    forrest.translate()
+    forrest.save_translate()
