@@ -5,7 +5,7 @@ import difflib
 
 class Subtitles:
 
-    ORIGINAL_SUBTITLES = 'Fantastic journey 1x1 Vortex.srt'
+    ORIGINAL_SUBTITLES = 'Forrest.Gump.1994.srt'
     THE_MOST_USE_WORDS = '20k.txt'
     EN_CZ_DICTIONARY = 'en-cs.txt'
 
@@ -52,10 +52,9 @@ class Subtitles:
     def format_dictionary(self, file=EN_CZ_DICTIONARY):
         '''Converts string dictionary to dict format'''
         with open(file, 'r') as f:
-             dictionary_list = (f.read()).split('\n')
+            dictionary_list = (f.read()).split('\n')
 
         self.dictionary_dict = dict()
-
         for i in dictionary_list:
             key, *val = i.split('\t')
             self.dictionary_dict[key] = val
@@ -75,9 +74,8 @@ class Subtitles:
                 temporary[original_word] = singular_word
             else:
                 temporary[original_word] = original_word
-        #self.unknown_words = temporary
-        self.similar_words = {}
 
+        self.similar_words = {}
         for key, value in temporary.items():
             try:
                 similar = difflib.get_close_matches(value, self.key_list)[0]
@@ -99,7 +97,8 @@ class Subtitles:
         self.final_translate = {}
         for key, value in self.final_unknown_words.items():
             if value in self.dictionary_dict:
-                self.final_translate[key] = [self.final_unknown_words[key]] + self.dictionary_dict[value]
+                self.final_translate[key] = ([self.final_unknown_words[key]]
+                                            + self.dictionary_dict[value])
         return str(self.final_translate)
 
     def save_translate(self):
@@ -111,8 +110,8 @@ class Subtitles:
             f.write(self.translate())
 
         with open(file, 'r') as fp:
-                for i in fp:
-                    temporary += (str(i).replace('],',']\n'))
+            for i in fp:
+                temporary += (str(i).replace('],', ']\n'))
 
         with open(file, 'w') as fp:
             fp.write(temporary)
