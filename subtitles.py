@@ -2,9 +2,10 @@ from string import ascii_lowercase, ascii_uppercase
 import re
 import difflib
 
+
 class Subtitles:
 
-    ORIGINAL_SUBTITLES = 'Forrest.Gump.1994.srt'
+    ORIGINAL_SUBTITLES = 'Fantastic journey 1x1 Vortex.srt'
     THE_MOST_USE_WORDS = '20k.txt'
     EN_CZ_DICTIONARY = 'en-cs.txt'
 
@@ -15,7 +16,12 @@ class Subtitles:
     def original_subtitles(self, filename=ORIGINAL_SUBTITLES) -> None:
         '''Converts the subtitles to a list'''
         with open(filename, 'r') as f:
-            subtitles = f.read()
+            try:
+                subtitles = f.read()
+            except UnicodeDecodeError:
+                with open(filename, 'r', errors='ignore') as f:
+                    subtitles = f.read()
+
         # Remove of unnecessary characters
         self.original_list = re.findall(r'\w+', subtitles)
 
@@ -62,19 +68,28 @@ class Subtitles:
 
     def find_similar_words(self, file=THE_MOST_USE_WORDS):
         '''Creates list of similar words from list of unknown words'''
+        temporary = {}
+        for original_word in self.unknown_words:
+            if original_word.endswith('s'):
+                singular_word = original_word[:-1]
+                temporary[original_word] = singular_word
+            else:
+                temporary[original_word] = original_word
+        #self.unknown_words = temporary
         self.similar_words = {}
-        for i in self.unknown_words:
+
+        for key, value in temporary.items():
             try:
-                similar = difflib.get_close_matches(i, self.key_list)[0]
-                self.similar_words[i] = similar
+                similar = difflib.get_close_matches(value, self.key_list)[0]
+                self.similar_words[key] = similar
             except IndexError as e:
                 print(e)
                 pass
 
         with open(file, 'r') as f:
             known_words = (f.read()).split()
-        self.final_unknown_words = {}
 
+        self.final_unknown_words = {}
         for key, value in self.similar_words.items():
             if value not in known_words:
                 self.final_unknown_words[key] = value
@@ -104,10 +119,10 @@ class Subtitles:
 
 
 if __name__ == '__main__':
-    forrest = Subtitles()
-    forrest.original_subtitles()
-    forrest.filter_text()
-    forrest.remove_duplicities()
-    forrest.unknown_words()
-    forrest.find_similar_words()
-    forrest.save_translate()
+    document = Subtitles()
+    document.original_subtitles()
+    document.filter_text()
+    document.remove_duplicities()
+    document.unknown_words()
+    document.find_similar_words()
+    document.save_translate()
