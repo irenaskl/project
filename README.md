@@ -43,7 +43,7 @@ class Subtitles:
 **THE_MOST_USE_WORDS** - choose 30k, 20k or 10k.txt depending on your english level
 
 ## **Result**
-Created txt file named *whole file name of your English text*_translate.txt (for example Forrest.Gump.1994.srt_translate.txt). The words are sorted
+Created txt file named *whole file name of your English text*_translate.txt (for example Forrest.Gump.1994.srt_translate.txt). The words are sorted:
 
 the original word : [similar word, translate],
 for example:
