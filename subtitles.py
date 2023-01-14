@@ -6,7 +6,7 @@ import difflib
 class Subtitles:
 
     ORIGINAL_SUBTITLES = 'Forrest.Gump.1994.srt'
-    THE_MOST_USE_WORDS = '20k.txt'
+    THE_MOST_USED_WORDS = '20k.txt'
     EN_CZ_DICTIONARY = 'en-cs.txt'
 
     def __init__(self):
@@ -39,7 +39,7 @@ class Subtitles:
         temporary_list.sort()
         self.original_list = temporary_list
 
-    def unknown_words(self, file=THE_MOST_USE_WORDS) -> None:
+    def unknown_words(self, file=THE_MOST_USED_WORDS) -> None:
         '''Removes the most use words'''
         with open(file, 'r') as f:
             known_words = (f.read()).split()
@@ -65,10 +65,10 @@ class Subtitles:
         for key in self.dictionary_dict:
             self.key_list.append(key)
 
-    def find_similar_words(self, file=THE_MOST_USE_WORDS):
+    def find_similar_words(self, file=THE_MOST_USED_WORDS):
         '''Creates dictionary of similar words from list of unknown words'''
         temporary = {}
-        # Change plural on singular
+        # Change plural on singular, because en-cs contents only singulars
         for original_word in self.unknown_words:
             if original_word.endswith('s'):
                 singular_word = original_word[:-1]
@@ -90,8 +90,8 @@ class Subtitles:
             known_words = (f.read()).split()
 
         self.final_unknown_words = {}
-        # Again try to remove the most use words,
-        # because we have new valid words because of changed
+        # Again try to remove the most used words,
+        # because we have new known words because of changed
         # plural to singular.
         for key, value in self.similar_words.items():
             if value not in known_words:
