@@ -52,4 +52,4 @@ for example:
 'raccoons': ['raccoon', 'mýval']
 
 ## **Note**
-When the Original subtitles contains names, names of cities etc.or word is not in dictionary, the program tries to find similar word and this similar word is had different meaning.
+When the Original subtitles contains names, names of cities etc. or word is not in dictionary, the program tries to find similar word and this similar word is had different meaning.
