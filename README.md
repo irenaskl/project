@@ -40,6 +40,7 @@ class Subtitles:
     EN_CZ_DICTIONARY = 'en-cs.txt'
 ```
 **ORIGINAL_SUBTITLES** - fill in whole file name of your English text
+
 **THE_MOST_USE_WORDS** - choose 30k, 20k or 10k.txt depending on your english level
 
 ## **Result**
