@@ -66,8 +66,9 @@ class Subtitles:
             self.key_list.append(key)
 
     def find_similar_words(self, file=THE_MOST_USE_WORDS):
-        '''Creates list of similar words from list of unknown words'''
+        '''Creates dictionary of similar words from list of unknown words'''
         temporary = {}
+        # Change plural on singular
         for original_word in self.unknown_words:
             if original_word.endswith('s'):
                 singular_word = original_word[:-1]
@@ -76,6 +77,7 @@ class Subtitles:
                 temporary[original_word] = original_word
 
         self.similar_words = {}
+        # Find the same or similar unknown words as in en-cs dictionary
         for key, value in temporary.items():
             try:
                 similar = difflib.get_close_matches(value, self.key_list)[0]
@@ -88,6 +90,9 @@ class Subtitles:
             known_words = (f.read()).split()
 
         self.final_unknown_words = {}
+        # Again try to remove the most use words,
+        # because we have new valid words because of changed
+        # plural to singular.
         for key, value in self.similar_words.items():
             if value not in known_words:
                 self.final_unknown_words[key] = value
@@ -109,6 +114,9 @@ class Subtitles:
         with open(file, 'w') as f:
             f.write(self.translate())
 
+        # The final dictionary has the format:
+        # origin word from subtitles : [the same or similar word in dictionary,
+        # the translate].
         with open(file, 'r') as fp:
             for i in fp:
                 temporary += (str(i).replace('],', ']\n'))
