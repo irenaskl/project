@@ -22,7 +22,7 @@ class Subtitles:
                 with open(filename, 'r', errors='ignore') as f:
                     subtitles = f.read()
 
-        # Remove of unnecessary characters
+        # Remove unnecessary characters
         self.original_list = re.findall(r'\w+', subtitles)
 
     def filter_text(self) -> None:
@@ -54,7 +54,7 @@ class Subtitles:
         with open(file, 'r') as f:
             dictionary_list = (f.read()).split('\n')
 
-        self.dictionary_dict = dict()
+        self.dictionary_dict = {}
         for i in dictionary_list:
             key, *val = i.split('\t')
             self.dictionary_dict[key] = val
@@ -103,7 +103,7 @@ class Subtitles:
         for key, value in self.final_unknown_words.items():
             if value in self.dictionary_dict:
                 self.final_translate[key] = ([self.final_unknown_words[key]]
-                                            + self.dictionary_dict[value])
+                                            + self.dictionary_dict[value][:1])
         return str(self.final_translate)
 
     def save_translate(self):
