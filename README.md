@@ -2,7 +2,12 @@
 
 
 ## **Usefulness:**
-This program was created to translate English movie subtitles, but can be used for any English text. Subtitles.py creates en-cz dictionary with less common English words from the English text.
+The purpose of this tool is to create a vocabulary list with translate (EN -> CZ) to learn from English movies subtitles and other English text.
+From the original and the long text, it removes the most frequently used words.
+The list is shorter than the original text and easy to learn.
+
+For example, 90min movie contains 1500 unique words. This tool removes the most known
+words and the user gets a short list with typical unknown words for her/him.
 
 ## **Dependencies:**
 **from string import ascii_lowercase, ascii_uppercase**
@@ -31,6 +36,9 @@ This program was created to translate English movie subtitles, but can be used f
 - free subtitles from [opensubtitles.org](https://www.opensubtitles.org/cs/search/sublanguageid-eng/idmovie-178)
 - these subtitles are there only for example uses
 
+**Forrest.Gump.1994.srt_translate.txt**
+- the show of result
+
 ##  **How to use it**
 ```Python
 class Subtitles:
@@ -52,4 +60,4 @@ for example:
 'raccoons': ['raccoon', 'mýval']
 
 ## **Note**
-When the Original subtitles contains names, names of cities etc. or word is not in dictionary, the program tries to find similar word and this similar word is had different meaning.
+When the Original subtitles contain names, names of cities etc. or word is not in dictionary, the program tries to find similar word and this similar word is had different meaning.
