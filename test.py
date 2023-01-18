@@ -5,7 +5,7 @@ from subtitles import Subtitles
 class Test(unittest.TestCase):
 
     def test_original_subtitles(self):
-        file = 'test.subtitles.txt'
+        file = 'test_subtitles.txt'
         test_document = Subtitles()
         test_document.original_subtitles(file)
         self.assertEqual(test_document.original_list[-1], 'these')
