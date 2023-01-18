@@ -68,7 +68,7 @@ class Subtitles:
     def find_similar_words(self, file=THE_MOST_USED_WORDS):
         '''Creates dictionary of similar words from list of unknown words'''
         temporary = {}
-        # Change plural on singular, because en-cs contents only singulars
+        # Change plural on singular, because en-cs dictionary contents only singulars
         for original_word in self.unknown_words:
             if original_word.endswith('s'):
                 singular_word = original_word[:-1]
