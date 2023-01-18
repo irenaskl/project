@@ -1,0 +1,16 @@
+1
+00:03:17,949 --> 00:03:19,200
+Hello.
+
+2
+00:03:20,159 --> 00:03:22,829
+My name's Forrest. Forrest Gump.
+
+3
+00:03:28,376 --> 00:03:30,420
+Do you want a chocolate?
+
+4
+00:03:33,006 --> 00:03:36,426
+I could eat about
+a million and a half of these.
